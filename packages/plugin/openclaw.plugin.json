@@ -1,0 +1,60 @@
+{
+  "id": "clawcrm",
+  "name": "ClawCRM",
+  "version": "0.1.0",
+  "description": "CRM system with multi-channel auth, RBAC, and web dashboard for OpenClaw",
+  "skills": [
+    "src/skills/crm-sales",
+    "src/skills/crm-support",
+    "src/skills/crm-admin"
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "dbPath": {
+        "type": "string",
+        "description": "Path to the SQLite database file"
+      },
+      "wsPort": {
+        "type": "number",
+        "default": 3848,
+        "description": "WebSocket server port for frontend connections"
+      },
+      "wsAllowedOrigins": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Allowed origins for WebSocket connections"
+      },
+      "defaultPolicy": {
+        "type": "string",
+        "enum": ["deny-all", "allow-own"],
+        "default": "deny-all",
+        "description": "Default permission policy"
+      },
+      "adminUsers": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of admin user emails"
+      },
+      "modules": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "CRM module package names to load"
+      },
+      "maxPairedInstances": {
+        "type": "number",
+        "default": 3,
+        "description": "Maximum number of paired frontend instances"
+      }
+    }
+  },
+  "uiHints": {
+    "dbPath": { "label": "Database Path", "placeholder": "~/.openclaw/clawcrm.db" },
+    "wsPort": { "label": "WebSocket Port" },
+    "wsAllowedOrigins": { "label": "Allowed Origins" },
+    "adminUsers": { "label": "Admin Users" },
+    "modules": { "label": "CRM Modules" },
+    "maxPairedInstances": { "label": "Max Paired Instances" }
+  }
+}

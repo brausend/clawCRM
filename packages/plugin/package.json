@@ -1,0 +1,29 @@
+{
+  "name": "@clawcrm/plugin",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "openclaw": {
+    "extensions": ["./src/index.ts"]
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@clawcrm/shared": "workspace:*",
+    "@simplewebauthn/server": "^11.0.0",
+    "@sinclair/typebox": "^0.34.0",
+    "better-sqlite3": "^11.0.0",
+    "drizzle-orm": "^0.38.0",
+    "nanoid": "^5.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/ws": "^8.5.0",
+    "drizzle-kit": "^0.30.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
