@@ -21,9 +21,9 @@ export default function ModuleRenderer({ moduleId }: ModuleRendererProps) {
       }
     >
       <div className="text-center py-12 text-gray-500">
-        <p className="text-lg font-medium">Modul: {moduleId}</p>
+        <p className="text-lg font-medium">Module: {moduleId}</p>
         <p className="mt-2">
-          Die UI fuer dieses Modul wird dynamisch geladen, sobald es installiert ist.
+          The UI for this module will be loaded dynamically once it is installed.
         </p>
       </div>
     </Suspense>

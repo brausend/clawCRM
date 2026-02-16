@@ -18,7 +18,7 @@ export default function Login() {
     try {
       await loginWithPasskey();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen");
+      setError(err instanceof Error ? err.message : "Login failed");
     } finally {
       setLoading(false);
     }
@@ -33,13 +33,13 @@ export default function Login() {
               ClawCRM
             </h1>
             <p className="text-sm text-gray-500 mt-2">
-              Melde dich mit deinem Passkey an
+              Sign in with your passkey
             </p>
           </div>
 
           {!connected && (
             <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-950 text-yellow-700 dark:text-yellow-300 rounded-lg text-sm">
-              Verbindung wird hergestellt...
+              Connecting...
             </div>
           )}
 
@@ -59,13 +59,13 @@ export default function Login() {
             ) : (
               <>
                 <span>🔐</span>
-                Mit Passkey anmelden
+                Sign in with Passkey
               </>
             )}
           </button>
 
           <p className="text-xs text-gray-400 text-center mt-6">
-            Kein Passwort noetig. Dein Geraet authentifiziert dich sicher.
+            No password needed. Your device authenticates you securely.
           </p>
         </div>
       </div>

@@ -4,9 +4,9 @@ import { useStore } from "../lib/store.js";
 const navItems = [
   { to: "/", label: "Dashboard", icon: "📊" },
   { to: "/chats", label: "Chats", icon: "💬" },
-  { to: "/orders", label: "Bestellungen", icon: "📦" },
-  { to: "/contacts", label: "Kontakte", icon: "👥" },
-  { to: "/projects", label: "Projekte", icon: "📋" },
+  { to: "/orders", label: "Orders", icon: "📦" },
+  { to: "/contacts", label: "Contacts", icon: "👥" },
+  { to: "/projects", label: "Projects", icon: "📋" },
 ];
 
 export default function Sidebar() {
@@ -81,7 +81,7 @@ export default function Sidebar() {
             onClick={logout}
             className="text-xs text-gray-500 hover:text-red-600 transition-colors"
           >
-            Abmelden
+            Logout
           </button>
         </div>
       </div>

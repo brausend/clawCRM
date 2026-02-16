@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  # OpenClaw gateway with ClawCRM plugin
+  openclaw:
+    image: openclaw/gateway:latest
+    container_name: clawcrm-openclaw
+    restart: unless-stopped
+    ports:
+      - "3848:3848"   # WebSocket port for dashboard communication
+    volumes:
+      # Mount the plugin into OpenClaw
+      - ./packages/plugin:/app/plugins/clawcrm:ro
+      - ./packages/shared:/app/plugins/clawcrm/node_modules/@clawcrm/shared:ro
+      # Persistent database
+      - clawcrm-data:/data
+    environment:
+      # OpenClaw plugin configuration
+      OPENCLAW_PLUGINS__ENTRIES__CLAWCRM__ENABLED: "true"
+      OPENCLAW_PLUGINS__ENTRIES__CLAWCRM__CONFIG__DB_PATH: "/data/clawcrm.db"
+      OPENCLAW_PLUGINS__ENTRIES__CLAWCRM__CONFIG__WS_PORT: "3848"
+      OPENCLAW_PLUGINS__ENTRIES__CLAWCRM__CONFIG__WS_ALLOWED_ORIGINS: "http://localhost,http://localhost:8080"
+      OPENCLAW_PLUGINS__ENTRIES__CLAWCRM__CONFIG__DEFAULT_POLICY: "deny-all"
+      OPENCLAW_PLUGINS__ENTRIES__CLAWCRM__CONFIG__MAX_PAIRED_INSTANCES: "3"
+      # Add your own OpenClaw env vars here
+      # OPENCLAW_API_KEY: ...
+      # OPENCLAW_MODEL: ...
+
+  # Web dashboard (static SPA served by nginx)
+  web:
+    build:
+      context: .
+      dockerfile: packages/web/Dockerfile
+      args:
+        VITE_WS_URL: "ws://localhost:3848"
+        VITE_INSTANCE_KEY: ""  # set after pairing or via .env
+    container_name: clawcrm-web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - openclaw
+
+volumes:
+  clawcrm-data:

@@ -13,6 +13,7 @@ export async function syncChatMessage(
   direction: "inbound" | "outbound",
   content: string,
   metadata?: Record<string, unknown>,
+  contactId?: string,
 ): Promise<string> {
   const db = getDb();
   const id = nanoid();
@@ -21,11 +22,13 @@ export async function syncChatMessage(
   await db.insert(chatMessages).values({
     id,
     userId,
+    contactId: contactId ?? null,
     channel,
     channelChatId,
     direction,
     content,
     metadata: metadata ? JSON.stringify(metadata) : null,
+    isRead: direction === "outbound",
     timestamp,
   });
 

@@ -201,6 +201,100 @@ Add modules to the config:
 }
 ```
 
+## Deployment
+
+### Architecture Overview
+
+```
+┌──────────────────────────────────────────────────────────┐
+│  Remote Server / VPS / Cloud                             │
+│                                                          │
+│  ┌────────────────────┐     ┌─────────────────────────┐  │
+│  │  OpenClaw Gateway   │◀───│  Chat Channels (TG, WA) │  │
+│  │  + ClawCRM Plugin   │    └─────────────────────────┘  │
+│  │                     │                                 │
+│  │  Port 3848 (WS)     │◀──── WebSocket ────┐           │
+│  └────────────────────┘                     │           │
+│                                              │           │
+│  ┌────────────────────┐                     │           │
+│  │  Web Dashboard      │  ◀── Browser ──────┘           │
+│  │  (nginx, Port 80)   │                                │
+│  └────────────────────┘                                 │
+└──────────────────────────────────────────────────────────┘
+```
+
+**Important:** The plugin runs _inside_ OpenClaw. The web SPA communicates with the plugin via WebSocket (port 3848). Both can run on the same server.
+
+### Docker Compose (recommended)
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/brausend/clawnCRM.git && cd clawCRM
+
+# 2. Configure environment
+cp .env.production.example .env
+
+# 3. Start services
+docker compose up -d
+
+# 4. Generate an instance key (in the bot chat)
+/crm-admin generate-instance-key
+
+# 5. Add the key to .env and rebuild the web container
+docker compose up -d --build web
+```
+
+### Web Dashboard Only (Docker)
+
+If OpenClaw is already running and you only need to deploy the dashboard:
+
+```bash
+docker build \
+  --build-arg VITE_WS_URL=wss://your-server:3848 \
+  --build-arg VITE_INSTANCE_KEY=ik_xxx \
+  -f packages/web/Dockerfile \
+  -t clawcrm-web .
+
+docker run -d -p 8080:80 --name clawcrm-web clawcrm-web
+```
+
+### Plugin Only (without Docker)
+
+```bash
+# Install the plugin into an existing OpenClaw instance
+pnpm install && pnpm build
+openclaw plugins install -l ./packages/plugin
+```
+
+### Reverse Proxy (Production)
+
+For HTTPS/WSS a reverse proxy (e.g. Caddy, Traefik, nginx) is recommended:
+
+```
+crm.example.com        → :8080 (Web Dashboard)
+crm.example.com:3848   → :3848 (WebSocket, upgrade)
+```
+
+Caddy example:
+```
+crm.example.com {
+    reverse_proxy localhost:8080
+}
+crm.example.com:3848 {
+    reverse_proxy localhost:3848
+}
+```
+
+### Plugin ↔ Dashboard Communication
+
+1. **Pairing**: Dashboard sends `pair:request` with instance key → plugin responds with `wsToken`
+2. **Auth**: Dashboard authenticates via Passkey (WebAuthn) over the WebSocket
+3. **RPC**: All data operations use `rpc:request` / `rpc:response` messages
+4. **Realtime**: Plugin pushes updates via `data` messages to subscribed clients
+5. **Reconnect**: Dashboard uses the stored `wsToken` for automatic reconnects
+
+Protocol details: see `packages/shared/src/ws-protocol.ts`
+
 ## RBAC
 
 - **Default-deny**: No cross-user access without explicit permission

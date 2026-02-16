@@ -31,25 +31,25 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Willkommen, {user?.displayName}
+          Welcome, {user?.displayName}
         </h2>
-        <p className="text-gray-500 mt-1">Dein CRM auf einen Blick</p>
+        <p className="text-gray-500 mt-1">Your CRM at a glance</p>
       </div>
 
       {/* Stats cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatCard
-          label="Offene Bestellungen"
+          label="Open Orders"
           value={openOrders.length}
           color="blue"
         />
         <StatCard
-          label="In Bearbeitung"
+          label="In Progress"
           value={processingOrders.length}
           color="yellow"
         />
         <StatCard
-          label="Aktive Chats"
+          label="Active Chats"
           value={chats.length}
           color="green"
         />
@@ -60,10 +60,10 @@ export default function Dashboard() {
         {/* Recent orders */}
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5">
           <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
-            Letzte Bestellungen
+            Recent Orders
           </h3>
           {orders.length === 0 ? (
-            <p className="text-gray-500 text-sm">Keine Bestellungen vorhanden.</p>
+            <p className="text-gray-500 text-sm">No orders yet.</p>
           ) : (
             <div className="space-y-3">
               {orders.slice(0, 5).map((order) => (
@@ -87,10 +87,10 @@ export default function Dashboard() {
         {/* Recent chats */}
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5">
           <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
-            Letzte Chats
+            Recent Chats
           </h3>
           {chats.length === 0 ? (
-            <p className="text-gray-500 text-sm">Keine Chats vorhanden.</p>
+            <p className="text-gray-500 text-sm">No chats yet.</p>
           ) : (
             <div className="space-y-3">
               {chats.slice(0, 5).map((chat) => (

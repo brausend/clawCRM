@@ -14,7 +14,7 @@ interface DataTableProps<T> {
 export default function DataTable<T extends Record<string, any>>({
   columns,
   data,
-  emptyMessage = "Keine Daten vorhanden.",
+  emptyMessage = "No data available.",
 }: DataTableProps<T>) {
   if (data.length === 0) {
     return (

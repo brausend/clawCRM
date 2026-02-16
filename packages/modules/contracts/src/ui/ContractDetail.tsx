@@ -16,7 +16,7 @@ interface Contract {
 
 export default function ContractDetail({ contract }: { contract?: Contract }) {
   if (!contract) {
-    return <div className="text-gray-500">Kein Vertrag ausgewaehlt.</div>;
+    return <div className="text-gray-500">No contract selected.</div>;
   }
 
   return (

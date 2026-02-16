@@ -44,6 +44,7 @@ export async function linkChannelIdentity(
   channel: string,
   channelUserId: string,
   verified = true,
+  channelDisplayName?: string,
 ): Promise<void> {
   const db = getDb();
   await db.insert(channelIdentities).values({
@@ -51,6 +52,7 @@ export async function linkChannelIdentity(
     userId,
     channel,
     channelUserId,
+    channelDisplayName: channelDisplayName ?? null,
     verified,
     linkedAt: new Date().toISOString(),
   });
@@ -65,6 +67,7 @@ export async function createUserWithChannel(
   channel: string,
   channelUserId: string,
   email?: string,
+  channelDisplayName?: string,
 ): Promise<string> {
   const db = getDb();
   const userId = nanoid();
@@ -83,6 +86,7 @@ export async function createUserWithChannel(
     userId,
     channel,
     channelUserId,
+    channelDisplayName: channelDisplayName ?? null,
     verified: true,
     linkedAt: now,
   });

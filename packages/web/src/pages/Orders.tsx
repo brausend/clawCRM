@@ -15,7 +15,7 @@ export default function Orders() {
   }, []);
 
   const columns = [
-    { key: "title" as const, label: "Bestellung" },
+    { key: "title" as const, label: "Order" },
     {
       key: "status" as const,
       label: "Status",
@@ -24,7 +24,7 @@ export default function Orders() {
     { key: "notes" as const, label: "Notizen" },
     {
       key: "createdAt" as const,
-      label: "Erstellt",
+      label: "Created",
       render: (row: Order) =>
         new Date(row.createdAt).toLocaleDateString("de-DE"),
     },
@@ -34,14 +34,14 @@ export default function Orders() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Bestellungen
+          Orders
         </h2>
         <span className="text-sm text-gray-500">
-          {orders.length} Bestellungen
+          {orders.length} Orders
         </span>
       </div>
 
-      <DataTable columns={columns} data={orders} emptyMessage="Keine Bestellungen vorhanden." />
+      <DataTable columns={columns} data={orders} emptyMessage="No orders found." />
     </div>
   );
 }

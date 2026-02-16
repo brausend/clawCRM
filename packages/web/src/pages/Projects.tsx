@@ -17,12 +17,12 @@ export default function Projects() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-        Projekte
+        Projects
       </h2>
 
       {projects.length === 0 ? (
         <div className="text-center py-12 text-gray-500">
-          Keine Projekte vorhanden.
+          No projects yet.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -40,7 +40,7 @@ export default function Projects() {
                 </p>
               )}
               <p className="text-xs text-gray-400 mt-3">
-                Erstellt:{" "}
+                Created:{" "}
                 {new Date(project.createdAt).toLocaleDateString("de-DE")}
               </p>
             </div>

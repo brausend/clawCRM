@@ -21,16 +21,16 @@ export interface RpcError {
   details?: Record<string, unknown>;
 }
 
-/** Human-readable default messages per error code (German). */
+/** Human-readable default messages per error code. */
 export const ErrorMessages: Record<ErrorCode, string> = {
-  UNAUTHORIZED: "Nicht authentifiziert.",
-  FORBIDDEN: "Kein Zugriff -- kontaktiere deinen Admin.",
-  NOT_FOUND: "Nicht gefunden.",
-  VALIDATION_ERROR: "Ungueltige Eingabe.",
-  CONFLICT: "Konflikt -- Daten wurden zwischenzeitlich geaendert.",
-  RATE_LIMITED: "Zu viele Anfragen. Bitte warte kurz.",
-  INTERNAL_ERROR: "Interner Fehler. Bitte versuche es erneut.",
-  SETUP_REQUIRED: "Ersteinrichtung erforderlich.",
-  PAIRING_INVALID: "Instance-Pairing ungueltig oder abgelaufen.",
-  SESSION_EXPIRED: "Sitzung abgelaufen. Bitte erneut anmelden.",
+  UNAUTHORIZED: "Not authenticated.",
+  FORBIDDEN: "Access denied — contact your admin.",
+  NOT_FOUND: "Not found.",
+  VALIDATION_ERROR: "Invalid input.",
+  CONFLICT: "Conflict — data was modified in the meantime.",
+  RATE_LIMITED: "Too many requests. Please wait.",
+  INTERNAL_ERROR: "Internal error. Please try again.",
+  SETUP_REQUIRED: "Initial setup required.",
+  PAIRING_INVALID: "Instance pairing invalid or expired.",
+  SESSION_EXPIRED: "Session expired. Please log in again.",
 };

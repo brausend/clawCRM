@@ -13,40 +13,28 @@ import { requestAuthChallenge, sendAuthVerify } from "./ws-client.js";
 export async function loginWithPasskey(): Promise<void> {
   return new Promise((resolve, reject) => {
     const onChallenge = async (event: Event) => {
+      const cleanupAll = () => {
+        window.removeEventListener("clawcrm:auth:challenge", onChallenge);
+      };
+
       try {
         const detail = (event as CustomEvent).detail;
         const options = JSON.parse(detail.challenge);
 
-        // Use WebAuthn browser API
         const credential = await startAuthentication({ optionsJSON: options });
-
-        // Send credential to server
         sendAuthVerify(credential);
 
-        // Wait for auth:success or auth:error
-        const onSuccess = () => {
-          cleanup();
-          resolve();
-        };
         const onError = (e: Event) => {
-          cleanup();
+          cleanupAll();
           reject(new Error((e as CustomEvent).detail.message));
-        };
-        const cleanup = () => {
-          window.removeEventListener("clawcrm:auth:error", onError);
         };
         window.addEventListener("clawcrm:auth:error", onError, { once: true });
 
-        // Auth success is handled by store update, resolve immediately
-        // since the store listener in the Login page will react
+        // Store listener in Login page reacts to auth:success
         setTimeout(resolve, 100);
       } catch (err) {
-        cleanup();
+        cleanupAll();
         reject(err);
-      }
-
-      function cleanup() {
-        window.removeEventListener("clawcrm:auth:challenge", onChallenge);
       }
     };
 

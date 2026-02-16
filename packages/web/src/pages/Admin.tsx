@@ -29,15 +29,15 @@ export default function Admin() {
   if (user?.role !== "admin") {
     return (
       <div className="text-center py-12 text-gray-500">
-        Admin-Zugang erforderlich.
+        Admin access required.
       </div>
     );
   }
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: "users", label: "Benutzer" },
-    { id: "permissions", label: "Berechtigungen" },
-    { id: "modules", label: "Module" },
+    { id: "users", label: "Users" },
+    { id: "permissions", label: "Permissions" },
+    { id: "modules", label: "Modules" },
   ];
 
   return (
@@ -69,8 +69,8 @@ export default function Admin() {
           columns={[
             { key: "displayName", label: "Name" },
             { key: "email", label: "E-Mail" },
-            { key: "role", label: "Rolle" },
-            { key: "createdAt", label: "Erstellt" },
+            { key: "role", label: "Role" },
+            { key: "createdAt", label: "Created" },
           ]}
           data={allUsers as unknown as Record<string, unknown>[]}
         />
@@ -79,11 +79,11 @@ export default function Admin() {
       {tab === "permissions" && (
         <DataTable
           columns={[
-            { key: "subjectType", label: "Typ" },
-            { key: "subjectId", label: "Subjekt" },
+            { key: "subjectType", label: "Type" },
+            { key: "subjectId", label: "Subject" },
             { key: "resource", label: "Resource" },
             { key: "resourceId", label: "Resource ID" },
-            { key: "action", label: "Aktion" },
+            { key: "action", label: "Action" },
           ]}
           data={allPermissions as unknown as Record<string, unknown>[]}
         />
@@ -92,7 +92,7 @@ export default function Admin() {
       {tab === "modules" && (
         <DataTable
           columns={[
-            { key: "name", label: "Modul" },
+            { key: "name", label: "Module" },
             { key: "version", label: "Version" },
             {
               key: "enabled",
@@ -105,14 +105,14 @@ export default function Admin() {
                       : "bg-gray-100 text-gray-500"
                   }`}
                 >
-                  {row.enabled ? "Aktiv" : "Deaktiviert"}
+                  {row.enabled ? "Active" : "Disabled"}
                 </span>
               ),
             },
-            { key: "installedAt", label: "Installiert" },
+            { key: "installedAt", label: "Installed" },
           ]}
           data={allModules as unknown as Record<string, unknown>[]}
-          emptyMessage="Keine Module installiert."
+          emptyMessage="No modules installed."
         />
       )}
     </div>

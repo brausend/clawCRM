@@ -7,7 +7,7 @@ interface ChatThreadProps {
 
 export default function ChatThread({ messages, channelLabel }: ChatThreadProps) {
   if (messages.length === 0) {
-    return <div className="text-center py-8 text-gray-500">Keine Nachrichten.</div>;
+    return <div className="text-center py-8 text-gray-500">No messages.</div>;
   }
 
   return (

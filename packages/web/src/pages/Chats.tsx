@@ -41,7 +41,7 @@ export default function Chats() {
           </div>
           <div className="divide-y divide-gray-200 dark:divide-gray-800">
             {chats.length === 0 ? (
-              <p className="p-4 text-sm text-gray-500">Keine Chats vorhanden.</p>
+              <p className="p-4 text-sm text-gray-500">No chats yet.</p>
             ) : (
               chats.map((chat) => (
                 <button
@@ -81,7 +81,7 @@ export default function Chats() {
             />
           ) : (
             <div className="flex items-center justify-center h-64 text-gray-500">
-              Waehle einen Chat aus
+              Select a chat
             </div>
           )}
         </div>

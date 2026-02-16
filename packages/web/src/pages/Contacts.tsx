@@ -31,11 +31,11 @@ export default function Contacts() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Kontakte
+          Contacts
         </h2>
         <input
           type="text"
-          placeholder="Suchen..."
+          placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -45,7 +45,7 @@ export default function Contacts() {
       <DataTable
         columns={columns}
         data={filtered}
-        emptyMessage="Keine Kontakte gefunden."
+        emptyMessage="No contacts found."
       />
     </div>
   );
