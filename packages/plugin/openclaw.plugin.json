@@ -1,6 +1,6 @@
 {
   "id": "clawcrm",
-  "name": "ClawCRM",
+  "name": "clawcrm",
   "version": "0.1.0",
   "description": "CRM system with multi-channel auth, RBAC, and web dashboard for OpenClaw",
   "skills": [

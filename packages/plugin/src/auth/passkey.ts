@@ -10,7 +10,7 @@ import { getDb } from "../db/client.js";
 import { passkeyCredentials, users } from "../db/schema.js";
 
 // RP (Relying Party) config — configured at init time
-let rpName = "ClawCRM";
+let rpName = "clawcrm";
 let rpId = "localhost";
 let origin = "http://localhost:5173";
 

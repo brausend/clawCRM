@@ -76,22 +76,25 @@ pnpm install
 
 ### Plugin Setup
 
-1. Copy or link the `packages/plugin` directory into your OpenClaw extensions:
+1. Load the plugin (adjust the path to your OpenClaw installation):
 
 ```bash
-# Option A: Link for development
+# Option A: CLI (may throw "plugin not found: plugin" – use Option B if so)
 openclaw plugins install -l ./packages/plugin
 
-# Option B: Load via config path
+# Option B: Via config (recommended if you see the above error)
 # Add to your OpenClaw config:
-# plugins.load.paths: ["./path/to/clawCRM/packages/plugin"]
+# plugins.load.paths: ["/absolute/path/to/clawcrm/packages/plugin"]
 ```
 
-2. Configure the plugin in your OpenClaw config:
+2. Configure the plugin in your OpenClaw config. You must set `plugins.load.paths` so the plugin is loaded; then add `plugins.entries.clawcrm` (id is lowercase).
 
 ```json5
 {
   plugins: {
+    load: {
+      paths: ["/absolute/path/to/clawcrm/packages/plugin"]
+    },
     entries: {
       clawcrm: {
         enabled: true,
@@ -229,7 +232,7 @@ Add modules to the config:
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/brausend/clawnCRM.git && cd clawCRM
+git clone https://github.com/brausend/clawCRM.git && cd clawCRM
 
 # 2. Configure environment
 cp .env.production.example .env

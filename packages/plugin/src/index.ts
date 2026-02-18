@@ -43,7 +43,7 @@ import {
 import { rpcHandlers } from "./rpc/index.js";
 
 export const id = "clawcrm";
-export const name = "ClawCRM";
+export const name = "clawcrm";
 
 interface PluginConfig {
   dbPath?: string;
